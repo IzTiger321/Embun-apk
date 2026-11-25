@@ -4,7 +4,7 @@
 
 Embun is a personal finance tracker designed to help people manage their everyday finances in one place. Built with a focus on simplicity, privacy and accessibility, Embun makes it easier to keep track of accounts, transactions, budgets and financial activity.
 
-**Live application:** [https://embun-theta.vercel.app](https://embun-theta.vercel.app)
+**Live application:** [https://iztiger-embun.vercel.app](https://iztiger-embun.vercel.app)
 
 ---
 
