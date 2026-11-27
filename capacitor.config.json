@@ -1,9 +1,9 @@
 {
-  "appId": "app.embun.finance",
+  "appId": "com.embun.iztiger",
   "appName": "Embun",
   "webDir": "www",
   "server": {
-    "url": "https://embun-theta.vercel.app",
+    "url": "https://iztiger-embun.vercel.app",
     "cleartext": false,
     "androidScheme": "https"
   },
