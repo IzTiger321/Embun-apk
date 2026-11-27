@@ -1,9 +1,12 @@
-name: Build Embun APK
+name: Build and Release Embun APK
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -20,6 +23,10 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Read version from package.json
+        id: ver
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
       - name: Install dependencies
         run: npm install
 
@@ -34,7 +41,14 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - uses: actions/upload-artifact@v4
+      - name: Rename APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk "embun-${{ steps.ver.outputs.version }}v.apk"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
         with:
-          name: embun-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          tag_name: v${{ steps.ver.outputs.version }}
+          name: Embun ${{ steps.ver.outputs.version }}
+          files: embun-${{ steps.ver.outputs.version }}v.apk
+          overwrite_files: true
+          generate_release_notes: true
