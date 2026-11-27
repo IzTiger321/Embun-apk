@@ -1,12 +1,9 @@
-name: Build and Release Embun APK
+name: Build Embun APK
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
-
-permissions:
-  contents: write
 
 jobs:
   build:
@@ -30,15 +27,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Create Android project if missing
-        run: |
-          if [ ! -d android ]; then npx cap add android; fi
-          npx cap sync android
-
       - name: Download app icon
         run: |
           mkdir -p resources
           curl -fL -o resources/icon.png "https://image.nostr.build/resp/orig/4050ad55fb03d3423970af01beda84dcbd16e5cf5b6b21525a37116e4eed0435.png"
+
+      - name: Create Android project if missing
+        run: |
+          if [ ! -d android ]; then npx cap add android; fi
+          npx cap sync android
 
       - name: Generate Android icons
         run: npx --yes @capacitor/assets generate --android
@@ -52,16 +49,7 @@ jobs:
       - name: Rename APK
         run: cp android/app/build/outputs/apk/debug/app-debug.apk "embun-${{ steps.ver.outputs.version }}v.apk"
 
-      - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ steps.ver.outputs.version }}
-          name: Embun ${{ steps.ver.outputs.version }}
-          files: embun-${{ steps.ver.outputs.version }}v.apk
-          overwrite_files: true
-          generate_release_notes: true
-
-      - name: Upload APK as workflow artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: embun-${{ steps.ver.outputs.version }}v
