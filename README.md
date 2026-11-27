@@ -1,6 +1,6 @@
 # Embun APK
 
-Android app for Embun. It is a thin shell that loads https://embun-theta.vercel.app.
+Android app for Embun. It is a thin shell that loads https://iztiger-embun.vercel.app.
 Web updates reach the app automatically on the next launch, so you do not need
 to publish a new APK for web changes. Publish a new APK only when native
 plugins or Android permissions change.
