@@ -35,6 +35,14 @@ jobs:
           if [ ! -d android ]; then npx cap add android; fi
           npx cap sync android
 
+      - name: Download app icon
+        run: |
+          mkdir -p resources
+          curl -fL -o resources/icon.png "https://image.nostr.build/resp/orig/4050ad55fb03d3423970af01beda84dcbd16e5cf5b6b21525a37116e4eed0435.png"
+
+      - name: Generate Android icons
+        run: npx --yes @capacitor/assets generate --android
+
       - name: Build debug APK
         working-directory: android
         run: |
