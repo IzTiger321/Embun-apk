@@ -52,3 +52,9 @@ jobs:
           files: embun-${{ steps.ver.outputs.version }}v.apk
           overwrite_files: true
           generate_release_notes: true
+
+      - name: Upload APK as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: embun-${{ steps.ver.outputs.version }}v
+          path: embun-${{ steps.ver.outputs.version }}v.apk
