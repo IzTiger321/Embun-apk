@@ -1,6 +1,6 @@
 {
   "name": "embun-apk",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "description": "Embun Android shell. Loads the live Embun web app so updates arrive automatically.",
   "scripts": {
